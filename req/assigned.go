@@ -5,10 +5,10 @@ import (
 	"strconv"
 	"sync"
 
+	"github.com/gin-gonic/gin"
 	"github.com/hands-free/teacherui-backend/api"
 	"github.com/hands-free/teacherui-backend/entity"
 	"github.com/hands-free/teacherui-backend/util"
-	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -235,9 +235,9 @@ func GetStudentGroupAssignedHardRequest() gin.HandlerFunc {
 				wg.Done()
 			}
 		}()
-		close(queue)
-
 		wg.Wait()
+
+		close(queue)
 
 		body, err := jsoniter.Marshal(glps)
 		if err != nil {
