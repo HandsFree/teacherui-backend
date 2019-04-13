@@ -14,7 +14,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/handsfree/teacherui-backend/api"
 	"github.com/handsfree/teacherui-backend/cfg"
-	"github.com/thinkerou/favicon"
 )
 
 // TokenAuth ...
@@ -70,7 +69,8 @@ func GetRouterEngine() *gin.Engine {
 		gzip.Gzip(gzip.BestSpeed),
 
 		// specify favicon
-		favicon.New("./favicon.ico"),
+		// FIXME put this into config
+		// favicon.New("./favicon.ico"),
 
 		// token auth middleware
 		TokenAuth(),
@@ -85,11 +85,11 @@ func GetRouterEngine() *gin.Engine {
 	})
 
 	// this is the main template file.
-	router.LoadHTMLFiles("./templates/index.html", "./templates/unauthorised_user.html")
+	router.LoadHTMLFiles(cfg.Beaconing.Server.Templates...)
 
 	// the dist with all the static files.
 	// FIXME this is kind of hacky. presuming everything is in the GOPATH
-	router.Static("/dist", "./../beaconing-teacher-ui/frontend/public/dist")
+	router.Static("/dist", cfg.Beaconing.Server.DistFolder)
 
 	router.RedirectTrailingSlash = true
 

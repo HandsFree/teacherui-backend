@@ -31,12 +31,14 @@ type authInfo struct {
 }
 
 type serverInfo struct {
-	Local             bool   `toml:"local"`
-	Host              string `toml:"host"`
-	Port              uint16 `toml:"port"`
-	RootPath          string `toml:"root_path"`
-	GlpFilesPath      string `toml:"glp_files_path"`
-	BeaconingAPIRoute string `toml:"beaconing_api_route"`
+	Local             bool     `toml:"local"`
+	Host              string   `toml:"host"`
+	Port              uint16   `toml:"port"`
+	RootPath          string   `toml:"root_path"`
+	GlpFilesPath      string   `toml:"glp_files_path"`
+	BeaconingAPIRoute string   `toml:"beaconing_api_route"`
+	DistFolder        string   `toml:"dist_folder"`
+	Templates         []string `toml:"templates"`
 }
 
 type debugInfo struct {
