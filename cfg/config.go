@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/BurntSushi/toml"
-	"github.com/hands-free/teacherui-backend/util"
+	"github.com/handsfree/teacherui-backend/util"
 	jsoniter "github.com/json-iterator/go"
 )
 

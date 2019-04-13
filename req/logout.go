@@ -7,9 +7,9 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 
-	"github.com/hands-free/teacherui-backend/api"
-	"github.com/hands-free/teacherui-backend/cfg"
-	"github.com/hands-free/teacherui-backend/util"
+	"github.com/handsfree/teacherui-backend/api"
+	"github.com/handsfree/teacherui-backend/cfg"
+	"github.com/handsfree/teacherui-backend/util"
 )
 
 func GetLogOutRequest() gin.HandlerFunc {

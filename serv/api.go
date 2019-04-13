@@ -2,7 +2,7 @@ package serv
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hands-free/teacherui-backend/req"
+	"github.com/handsfree/teacherui-backend/req"
 )
 
 func registerAPI(router *gin.Engine) {
@@ -84,6 +84,7 @@ func registerAPI(router *gin.Engine) {
 	glps := v1.Group("glps")
 	{
 		glps.GET("/", req.GetGLPSRequest())
+		glps.GET("/exists_with_name", req.GetGLPSWithName())
 	}
 
 	glp := v1.Group("glp")

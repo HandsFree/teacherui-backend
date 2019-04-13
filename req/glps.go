@@ -1,14 +1,15 @@
 package req
 
 import (
+	"errors"
 	"log"
 	"net/http"
 	"strconv"
 
-	"github.com/hands-free/teacherui-backend/entity"
-	"github.com/hands-free/teacherui-backend/parse"
-	"github.com/hands-free/teacherui-backend/util"
 	"github.com/gin-gonic/gin"
+	"github.com/handsfree/teacherui-backend/entity"
+	"github.com/handsfree/teacherui-backend/parse"
+	"github.com/handsfree/teacherui-backend/util"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -26,6 +27,18 @@ func slicePlans(plans []*entity.GLP, index int, step int) ([]*entity.GLP, error)
 	}
 
 	return plans[index:stepIndex], nil
+}
+
+// GetGLPSWithName will return all of the glps
+// with the given name.
+func GetGLPSWithName() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		name := c.Query("name")
+		if len(name) == 0 {
+			c.AbortWithError(http.StatusBadRequest, errors.New("Invalid name given"))
+			return
+		}
+	}
 }
 
 // GetGLPSRequest Retrieves multiple glps

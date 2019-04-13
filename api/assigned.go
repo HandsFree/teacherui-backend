@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/hands-free/teacherui-backend/entity"
-	"github.com/hands-free/teacherui-backend/util"
+	"github.com/handsfree/teacherui-backend/entity"
+	"github.com/handsfree/teacherui-backend/util"
 	jsoniter "github.com/json-iterator/go"
 )
 

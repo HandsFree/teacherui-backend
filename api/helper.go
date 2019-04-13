@@ -15,7 +15,7 @@ import (
 
 	"net"
 
-	"github.com/hands-free/teacherui-backend/cfg"
+	"github.com/handsfree/teacherui-backend/cfg"
 )
 
 // ApiLayer is a layer which handles manipulation of

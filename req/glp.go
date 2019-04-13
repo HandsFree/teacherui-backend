@@ -7,9 +7,9 @@ import (
 
 	"gopkg.in/h2non/filetype.v1"
 
-	"github.com/hands-free/teacherui-backend/api"
-	"github.com/hands-free/teacherui-backend/cfg"
-	"github.com/hands-free/teacherui-backend/util"
+	"github.com/handsfree/teacherui-backend/api"
+	"github.com/handsfree/teacherui-backend/cfg"
+	"github.com/handsfree/teacherui-backend/util"
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 

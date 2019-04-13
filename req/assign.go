@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hands-free/teacherui-backend/api"
-	"github.com/hands-free/teacherui-backend/util"
+	"github.com/handsfree/teacherui-backend/api"
+	"github.com/handsfree/teacherui-backend/util"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/olekukonko/tablewriter"

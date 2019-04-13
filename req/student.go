@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/hands-free/teacherui-backend/api"
-	"github.com/hands-free/teacherui-backend/util"
+	"github.com/handsfree/teacherui-backend/api"
+	"github.com/handsfree/teacherui-backend/util"
 	"github.com/gin-gonic/gin"
 )
 

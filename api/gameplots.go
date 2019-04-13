@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	"github.com/hands-free/teacherui-backend/util"
+	"github.com/handsfree/teacherui-backend/util"
 	"github.com/gin-gonic/gin"
 )
 

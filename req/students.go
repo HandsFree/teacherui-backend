@@ -3,7 +3,7 @@ package req
 import (
 	"net/http"
 
-	"github.com/hands-free/teacherui-backend/api"
+	"github.com/handsfree/teacherui-backend/api"
 	"github.com/gin-gonic/gin"
 )
 
