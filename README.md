@@ -42,7 +42,7 @@ Licensed under GNU AGPLv3. See the `LICENSE.md` file for the full license.
 Cloning the repo should be done using Go:
 
 ```bash
-$ go get github.com/hands-free/beaconing-teacher-ui
+$ go get github.com/handsfree/beaconing-teacher-ui
 ```
 
 ### Frontend
