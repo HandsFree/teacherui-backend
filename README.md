@@ -2,82 +2,49 @@
   <img width="600" src="http://beaconing.eu/wp-content/themes/beaconing/images/logo/original_version_(black).png" alt="Beaconing">
 </p>
 <p align="center">
-  <strong>Beaconing Teacher UI</strong>
+  <strong>Beaconing Teacher UI &mdash; Backend</strong>
 </p>
 <p align="center">
-  Teacher Interface for the Beaconing H2020 EU funded project
+  This is the backend for the Beaconing Teacher UI.
 </p>
 <p align="center">
   <a href="http://beaconing.eu/">Website</a> • <a href="https://www.facebook.com/beaconing/">Facebook</a> • <a href="https://twitter.com/BeaconingEU">Twitter</a>
 </p>
-<p align="center">
-  <a href="https://semaphoreci.com/juddus/beaconing-teacher-ui">
-    <img src="https://semaphoreci.com/api/v1/juddus/beaconing-teacher-ui/branches/nightly/badge.svg" alt="Build Status">
-  </a>
-  <a href="https://snyk.io/test/github/HandsFree/beaconing-teacher-ui?targetFile=frontend%2Fpackage.json">
-    <img src="https://snyk.io/test/github/HandsFree/beaconing-teacher-ui/badge.svg?targetFile=frontend%2Fpackage.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/HandsFree/beaconing-teacher-ui?targetFile=frontend%2Fpackage.json" style="max-width:100%;">
-  </a>
-  <a href="https://www.codefactor.io/repository/github/handsfree/beaconing-teacher-ui">
-    <img src="https://www.codefactor.io/repository/github/handsfree/beaconing-teacher-ui/badge" alt="CodeFactor">
-  </a>
-</p>
 
-# Repo Information
-
-## Branches
-* nightly - contains the latest code, this may be buggy
-* master - contains the latest stable release. any time a release is created nightly
-should be merged onto the master branch, a release is then made from the master branch.
+# teacherui-backend
+Note, the frontend code can be found [here](//github.com/HandsFree/beaconing-teacher-ui).
 
 ## License
 Licensed under GNU AGPLv3. See the `LICENSE.md` file for the full license.
 
 # Development
 ## Prerequisites
-- PostgreSQL installed locally
-- Go
 - Yarn
+- Go
 
 ## Installation
 Cloning the repo should be done using Go:
 
 ```bash
-$ go get github.com/handsfree/beaconing-teacher-ui
+$ go get github.com/handsfree/teacherui-backend
 ```
 
-### Frontend
-#### Installing deps
-As simple as running yarn.
-In the frontend folder run:
-
-```bash
-$ yarn
-```
-
-#### Building
-Can be built in either production mode (uglified and minified):
-
-```bash
-$ yarn bp
-```
-
-Or in development mode:
-
-```bash
-$ yarn b
-```
-
-### Backend
-#### Installing
+### Building
 In the backend folder type:
 ```bash
 $ go build -o beaconing
 ```
 
-#### Config
-A config file must be made before running the backend.
+### Setting up
+A configuration file must be created before running. The binary will look for the
+configuration file in the same directory as the binary, e.g.
 
-The config file is stored in cfg/config.toml. Below is an example of a configuration file:
+  folder/
+    beaconing.exe
+    cfg/
+      config.toml
+
+Below is an example configuration file:
 
 config.toml
 ```toml
@@ -101,8 +68,7 @@ key_file = "./trans.keys"
 grmon = false
 ```
 
-Place `config.toml` in `backend/cfg/`.
-
+### Configuration
 By default the server requests to the API and scripts will be loaded from the external IP address.
 
 To stop the use of the external IP address, and to make the callback link become 127.0.0.1, you must set `local` to `true`:
@@ -138,14 +104,11 @@ fish
 $ set -x GIN_MODE release
 ```
 
-#### Running the backend
-In the backend folder:
+### Running
+To run, simply execute the compiled binary file:
+
 ```bash
 $ ./beaconing
 ```
 
-The backend will now be running at `localhost:<port>`
-
-# Notes
-## Browser plugins blocking functionality
-In some cases, the analytics section on the student profile may not work. This is due to a request to `analytics.beaconing.eu` which in some privacy tracker plugins/browser tracking protection implementations will be denied. In my case, the plugin `Privacy Badger` denied access to `analytics.beaconing.eu`.
+The backend will now be running at `localhost:8080` by default.
