@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"gopkg.in/h2non/filetype.v1"
+	"github.com/h2non/filetype"
 
 	"github.com/handsfree/teacherui-backend/api"
 	"github.com/handsfree/teacherui-backend/cfg"
