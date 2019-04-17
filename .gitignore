@@ -2,3 +2,4 @@ main
 teacherui-backend
 *.toml
 .idea
+.DS_Store
