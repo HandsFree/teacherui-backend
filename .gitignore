@@ -1,4 +1,4 @@
 main
-teacherui_backend
+teacherui-backend
 *.toml
 .idea
