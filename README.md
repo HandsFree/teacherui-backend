@@ -59,6 +59,11 @@ port = 8080
 root_path = "./../frontend/public/"
 glp_files_path = "./glp_files/"
 beaconing_api_route = "https://core.beaconing.eu/api/"
+templates = [
+    "templates/index.html",
+    "unauthorised_user.html"
+]
+dist_folder = "frontend/public/dist"
 
 [localisation]
 map_file = "./trans.map"
