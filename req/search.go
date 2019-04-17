@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/felixangell/fuzzysearch/fuzzy"
+	"github.com/lithammer/fuzzysearch/fuzzy"
 
 	"github.com/handsfree/teacherui-backend/entity"
 	"github.com/handsfree/teacherui-backend/parse"
@@ -107,7 +107,7 @@ func searchGLPS(s *gin.Context, query searchRequestQuery) ([]*entity.GLP, error)
 	// Process the actual search here!
 	glpsSearches := fuzzy.RankFindFold(searchQuery, glpNames)
 	for _, glpRank := range glpsSearches {
-		glpIndex := glpPtrs[glpRank.Index]
+		glpIndex := glpPtrs[glpRank.OriginalIndex]
 		matchedGLPS = append(matchedGLPS, glps[glpIndex])
 	}
 
@@ -147,7 +147,7 @@ func searchStudents(s *gin.Context, query searchRequestQuery) ([]*entity.Student
 	// do the searches.
 	studentUsernameSearch := fuzzy.RankFindFold(query.Query, studentUsernames)
 	for _, studentRank := range studentUsernameSearch {
-		studentIndex := studentPtrs[studentRank.Index]
+		studentIndex := studentPtrs[studentRank.OriginalIndex]
 
 		student := students[studentIndex]
 		if _, ok := encounteredStudents[student.ID]; !ok {
@@ -158,7 +158,7 @@ func searchStudents(s *gin.Context, query searchRequestQuery) ([]*entity.Student
 
 	studentFullNameSearch := fuzzy.RankFindFold(query.Query, studentFullNames)
 	for _, studentRank := range studentFullNameSearch {
-		studentIndex := studentPtrs[studentRank.Index]
+		studentIndex := studentPtrs[studentRank.OriginalIndex]
 
 		student := students[studentIndex]
 		if _, ok := encounteredStudents[student.ID]; !ok {
@@ -201,7 +201,7 @@ func searchGroups(s *gin.Context, query searchRequestQuery) ([]*entity.StudentGr
 	// do the searches.
 	groupNameSearch := fuzzy.RankFindFold(query.Query, groupNames)
 	for _, groupRank := range groupNameSearch {
-		groupIndex := groupPtrs[groupRank.Index]
+		groupIndex := groupPtrs[groupRank.OriginalIndex]
 
 		group := groups[groupIndex]
 		if _, ok := encounteredGroups[group.ID]; !ok {
