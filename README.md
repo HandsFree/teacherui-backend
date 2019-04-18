@@ -11,42 +11,47 @@
   <a href="http://beaconing.eu/">Website</a> • <a href="https://www.facebook.com/beaconing/">Facebook</a> • <a href="https://twitter.com/BeaconingEU">Twitter</a>
 </p>
 
-# teacherui-backend
-Note, the frontend code can be found [here](//github.com/HandsFree/beaconing-teacher-ui).
+# Repo Information
+Note, the frontend code can be found [here](//github.com/HandsFree/teacherui-frontend).
 
 ## License
 Licensed under GNU AGPLv3. See the `LICENSE.md` file for the full license.
 
-# Development
-## Prerequisites
-- Yarn
-- Go
+## Development
+### Prerequisites
 
-## Installation
-Cloning the repo should be done using Go:
+- Go 1.11 or above
 
+### Obtaining the code
+Clone the repo:
 ```bash
-$ go get github.com/handsfree/teacherui-backend
+$ git clone git@github.com:HandsFree/teacherui-backend.git
+```
+
+If you do not want to use Go Modules:
+```bash
+$ go get github.com/HandsFree/teacherui-backend
 ```
 
 ### Building
-In the backend folder type:
 ```bash
-$ go build -o beaconing
+$ go build
 ```
 
 ### Setting up
 A configuration file must be created before running. The binary will look for the
 configuration file in the same directory as the binary, e.g.
 
+```
   folder/
-    beaconing.exe
-    cfg/
-      config.toml
+   |___ teacherui-backend <-- Binary
+   |___ cfg/
+         |___ config.toml <-- Config file
+```
 
 Below is an example configuration file:
 
-config.toml
+`config.toml`
 ```toml
 [auth]
 id = "teacherui"
