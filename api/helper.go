@@ -13,8 +13,6 @@ import (
 	// psql stuff
 	_ "github.com/lib/pq"
 
-	"net"
-
 	"github.com/handsfree/teacherui-backend/cfg"
 )
 
@@ -27,22 +25,6 @@ var API *CoreAPIManager
 
 // timeout for api requests (set to 120 seconds temporarily)
 const timeout = 120 * time.Second
-
-// GetOutboundIP is a helper function to get the
-// current computers outbound IP.
-func GetOutboundIP() net.IP {
-	if cfg.Beaconing.Server.Local {
-		return net.ParseIP("127.0.0.1")
-	}
-
-	conn, err := net.Dial("udp", "1.1.1.1:80")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer conn.Close()
-	localAddr := conn.LocalAddr().(*net.UDPAddr)
-	return localAddr.IP
-}
 
 // GetProtocol returns the protocol in which
 // the server should run in. By default this is
@@ -57,7 +39,8 @@ func GetProtocol() string {
 		return "http://"
 	}
 
-	if strings.HasPrefix(cfg.Beaconing.Server.Host, "https://") || strings.HasPrefix(cfg.Beaconing.Server.Host, "http://") {
+	// FIXME this is odd.
+	if strings.HasPrefix(cfg.Beaconing.Server.CallbackURL, "http") {
 		return ""
 	}
 
@@ -69,18 +52,11 @@ func GetProtocol() string {
 // however, when gin is in debug mode this is
 // the computers ip with the port (loaded from the config file)
 func GetBaseLink() string {
-	if gin.IsDebugging() {
-		// ip:port - we append the port in debug mode.
-		return fmt.Sprintf("%s:%d", GetOutboundIP().String(), cfg.Beaconing.Server.Port)
-	}
-
-	host := cfg.Beaconing.Server.Host
-
+	host := cfg.Beaconing.Server.CallbackURL
 	if host == "" {
 		log.Fatal("Server Host not defined in config!")
 	}
-
-	return cfg.Beaconing.Server.Host
+	return cfg.Beaconing.Server.CallbackURL
 }
 
 func getRootPath() string {

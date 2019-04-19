@@ -32,7 +32,8 @@ type authInfo struct {
 
 type serverInfo struct {
 	Local             bool     `toml:"local"`
-	Host              string   `toml:"host"`
+	CallbackURL       string   `toml:"callback_url"`
+	Host			  string   `toml:"host"`
 	Port              uint16   `toml:"port"`
 	RootPath          string   `toml:"root_path"`
 	GlpFilesPath      string   `toml:"glp_files_path"`
