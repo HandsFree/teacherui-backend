@@ -60,15 +60,16 @@ secret = "UrqTSjfnaWsaJHCTfGeU6YyEVNa3c2QzE8GrTLcoK1kljsNB3HrG6jXAGI6q8wKR"
 [server]
 local = true
 host = ""
+callback_url = ""
 port = 8080
-root_path = "./../frontend/public/"
-glp_files_path = "./glp_files/"
+file_root_path = "./files/"
+glp_files_path = "glp_files/"
 beaconing_api_route = "https://core.beaconing.eu/api/"
 templates = [
     "templates/index.html",
-    "unauthorised_user.html"
+    "templates/unauthorised_user.html"
 ]
-dist_folder = "frontend/public/dist"
+dist_folder = "../teacherui-frontend/public/dist"
 
 [localisation]
 map_file = "./trans.map"

@@ -94,7 +94,7 @@ type glpFile struct {
 }
 
 func loadGLPFiles(folderName string) []glpFile {
-	base, _ := filepath.Abs(filepath.Join(cfg.Beaconing.Server.RootPath, cfg.Beaconing.Server.GlpFilesPath))
+	base, _ := filepath.Abs(filepath.Join(cfg.Beaconing.Server.FileRootPath, cfg.Beaconing.Server.GlpFilesPath))
 
 	path := filepath.Join(base, folderName)
 
@@ -108,7 +108,7 @@ func loadGLPFiles(folderName string) []glpFile {
 	}
 
 	for _, fileInfo := range fileInfo {
-		fullPath := filepath.Join(cfg.Beaconing.Server.RootPath, cfg.Beaconing.Server.GlpFilesPath, folderName, fileInfo.Name())
+		fullPath := filepath.Join(cfg.Beaconing.Server.FileRootPath, cfg.Beaconing.Server.GlpFilesPath, folderName, fileInfo.Name())
 
 		file, err := os.Open(fullPath)
 		if err != nil {
