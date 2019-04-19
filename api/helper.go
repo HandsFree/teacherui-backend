@@ -9,7 +9,7 @@ import (
 
     "github.com/gin-gonic/gin"
 
-    "github.com/handsfree/teacherui-backend/cfg"
+    "github.com/HandsFree/teacherui-backend/cfg"
 )
 
 // ApiLayer is a layer which handles manipulation of

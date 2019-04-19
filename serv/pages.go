@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/handsfree/teacherui-backend/api"
-	"github.com/handsfree/teacherui-backend/req"
+	"github.com/HandsFree/teacherui-backend/api"
+	"github.com/HandsFree/teacherui-backend/req"
 )
 
 // Page represents a web page in the beaconing

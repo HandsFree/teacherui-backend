@@ -6,10 +6,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/handsfree/teacherui-backend/api"
-	"github.com/handsfree/teacherui-backend/entity"
-	"github.com/handsfree/teacherui-backend/parse"
-	"github.com/handsfree/teacherui-backend/util"
+	"github.com/HandsFree/teacherui-backend/api"
+	"github.com/HandsFree/teacherui-backend/entity"
+	"github.com/HandsFree/teacherui-backend/parse"
+	"github.com/HandsFree/teacherui-backend/util"
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 )

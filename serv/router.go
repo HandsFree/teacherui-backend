@@ -12,8 +12,8 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	"github.com/handsfree/teacherui-backend/api"
-	"github.com/handsfree/teacherui-backend/cfg"
+	"github.com/HandsFree/teacherui-backend/api"
+	"github.com/HandsFree/teacherui-backend/cfg"
 )
 
 // TokenAuth ...

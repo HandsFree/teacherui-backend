@@ -2,7 +2,7 @@ package serv
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/handsfree/teacherui-backend/req"
+	"github.com/HandsFree/teacherui-backend/req"
 )
 
 func registerAPI(router *gin.Engine) {

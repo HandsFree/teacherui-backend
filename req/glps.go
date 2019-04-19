@@ -7,9 +7,9 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/handsfree/teacherui-backend/entity"
-	"github.com/handsfree/teacherui-backend/parse"
-	"github.com/handsfree/teacherui-backend/util"
+	"github.com/HandsFree/teacherui-backend/entity"
+	"github.com/HandsFree/teacherui-backend/parse"
+	"github.com/HandsFree/teacherui-backend/util"
 	jsoniter "github.com/json-iterator/go"
 )
 

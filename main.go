@@ -12,10 +12,10 @@ import (
 	grmon "github.com/bcicen/grmon/agent"
 	raven "github.com/getsentry/raven-go"
 
-	"github.com/handsfree/teacherui-backend/api"
-	"github.com/handsfree/teacherui-backend/cfg"
-	"github.com/handsfree/teacherui-backend/serv"
-	"github.com/handsfree/teacherui-backend/util"
+	"github.com/HandsFree/teacherui-backend/api"
+	"github.com/HandsFree/teacherui-backend/cfg"
+	"github.com/HandsFree/teacherui-backend/serv"
+	"github.com/HandsFree/teacherui-backend/util"
 )
 
 func main() {

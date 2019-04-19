@@ -7,9 +7,9 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 
-	"github.com/handsfree/teacherui-backend/api"
-	"github.com/handsfree/teacherui-backend/cfg"
-	"github.com/handsfree/teacherui-backend/util"
+	"github.com/HandsFree/teacherui-backend/api"
+	"github.com/HandsFree/teacherui-backend/cfg"
+	"github.com/HandsFree/teacherui-backend/util"
 )
 
 func GetLogOutRequest() gin.HandlerFunc {
@@ -24,7 +24,7 @@ func GetLogOutRequest() gin.HandlerFunc {
 
 		logoutLink := fmt.Sprintf("https://core.beaconing.eu/auth/logout?client_id=%s&redirect_uri=%s",
 			cfg.Beaconing.Auth.ID,
-			api.GetLogOutLink())
+			api.GetLink())
 
 		// fmt.Println(logoutLink)
 

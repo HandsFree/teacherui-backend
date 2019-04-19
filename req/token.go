@@ -7,9 +7,9 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 
-	"github.com/handsfree/teacherui-backend/api"
-	"github.com/handsfree/teacherui-backend/cfg"
-	"github.com/handsfree/teacherui-backend/util"
+	"github.com/HandsFree/teacherui-backend/api"
+	"github.com/HandsFree/teacherui-backend/cfg"
+	"github.com/HandsFree/teacherui-backend/util"
 )
 
 func isLetterOrDigit(c rune) bool {

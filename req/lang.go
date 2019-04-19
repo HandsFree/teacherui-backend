@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/gin-gonic/gin"
-	"github.com/handsfree/teacherui-backend/cfg"
+	"github.com/HandsFree/teacherui-backend/cfg"
 )
 
 type phraseRequest struct {

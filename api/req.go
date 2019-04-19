@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/handsfree/teacherui-backend/util"
+	"github.com/HandsFree/teacherui-backend/util"
 	"github.com/gin-gonic/gin"
 )
 
