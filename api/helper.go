@@ -26,47 +26,14 @@ var API *CoreAPIManager
 // timeout for api requests (set to 120 seconds temporarily)
 const timeout = 120 * time.Second
 
-// GetProtocol returns the protocol in which
-// the server should run in. By default this is
-// https, unless the host string contains the protocol.
-// If gin is running in debug mode, it will run in HTTP.
-//
-// this assumption is made as debug mode will only be
-// run locally and not in production so https is not necessary
-// or easily configurable
-func GetProtocol() string {
-	if gin.IsDebugging() {
-		return "http://"
-	}
-
-	// FIXME this is odd.
-	if strings.HasPrefix(cfg.Beaconing.Server.CallbackURL, "http") {
-		return ""
-	}
-
-	return "https://"
-}
-
-// GetBaseLink returns the base server host
-// link, this is loaded from the configuration file
-// however, when gin is in debug mode this is
-// the computers ip with the port (loaded from the config file)
-func GetBaseLink() string {
-	host := cfg.Beaconing.Server.CallbackURL
-	if host == "" {
-		log.Fatal("Server Host not defined in config!")
-	}
-	return cfg.Beaconing.Server.CallbackURL
-}
-
-func getRootPath() string {
-	return GetProtocol() + GetBaseLink()
-}
-
 // GetRedirectBaseLink returns the link for
 // redirecting the api tokens
 func GetRedirectBaseLink() string {
-	return getRootPath() + "/api/v1/token/"
+	if cfg.Beaconing.Server.CallbackURL == "" {
+		log.Fatal("Server Host not defined in config!")
+	}
+
+	return cfg.Beaconing.Server.CallbackURL + "/api/v1/token/"
 }
 
 // GetLogOutLink ...
