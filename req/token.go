@@ -73,7 +73,7 @@ func GetTokenRequest() gin.HandlerFunc {
 
 			logoutLink := fmt.Sprintf("https://core.beaconing.eu/auth/logout?client_id=%s&redirect_uri=%s",
 				cfg.Beaconing.Auth.ID,
-				api.GetLogOutLink())
+				api.GetLink())
 
 			s.HTML(http.StatusUnauthorized, "unauthorised_user.html", gin.H{
 				"errorMessage": "Unauthorised access: not a teacher",
