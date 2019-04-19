@@ -32,6 +32,17 @@ func GetRedirectBaseLink() string {
     return cfg.Beaconing.Server.CallbackURL + "/api/v1/token/"
 }
 
+// GetLink returns the callback link with a trailing slash
+func GetLink() string {
+    return cfg.Beaconing.Server.CallbackURL + "/"
+}
+
+// SetupAPIHelper sets up an instanceof the API manager
+// should not be called more than once (in theory!)
+func SetupAPIHelper() {
+    API = newAPIHelper()
+}
+
 // CoreAPIManager manages all of the api middleman requests, etc.
 // as well as caching any json/requests that are frequently requested
 type CoreAPIManager struct {
