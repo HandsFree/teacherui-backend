@@ -72,10 +72,19 @@ func LoadConfig() {
 
 	// decode this file as toml, any problems with the
 	// toml code will be caught here.
-	if _, decodeErr := toml.Decode(string(configFileData), &Beaconing); decodeErr != nil {
+	var beaconingConfig tomlConfig
+	if _, decodeErr := toml.Decode(string(configFileData), &beaconingConfig); decodeErr != nil {
 		log.Fatal(decodeErr)
 		return
 	}
+
+	// we store this globally. it's not very 
+	// nice but it works for now.
+	Beaconing = beaconingConfig
+
+	if Beaconing.Server.CallbackURL == "" {
+        log.Fatal("Server Host not defined in config!")
+    }
 
 	TranslationKeys = LoadTranslationKeys()
 	Translations = LoadTranslations()

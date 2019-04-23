@@ -46,6 +46,10 @@ func loadPhrasesFromTranslationFile(langCode string, phrases ...string) map[stri
 			res, ok := loadPhraseFromTranslationFile(langCode, key)
 			if ok {
 				queue <- result{key, res}
+			} else {
+				// we cant find the translation but should satisfy
+				// the queue as well as return something to the sender.
+				queue <- result{key, "No translation found"}
 			}
 		}(p)
 	}
