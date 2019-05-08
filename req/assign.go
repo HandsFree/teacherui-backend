@@ -2,17 +2,13 @@ package req
 
 import (
 	"encoding/gob"
-	"fmt"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
 	"github.com/HandsFree/teacherui-backend/api"
 	"github.com/HandsFree/teacherui-backend/util"
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"github.com/olekukonko/tablewriter"
 )
 
 func init() {
@@ -71,9 +67,6 @@ func GetAssignRequest() gin.HandlerFunc {
 			to = toTime
 		}
 
-		// register the GLP in the session
-		registerGLP(s, glpID)
-
 		// do the post request to the beaconing API
 		// saying we're assigning said student to glp.
 		resp, err := api.AssignStudentToGLP(s, studentID, glpID, from, to)
@@ -124,8 +117,6 @@ func GetGroupAssignRequest() gin.HandlerFunc {
 			}
 		}
 
-		registerGLP(s, glpID)
-
 		resp, err := api.AssignGroupToGLP(s, groupID, glpID, from, to)
 		if err != nil {
 			s.String(http.StatusBadRequest, "Failed to assign group to glp")
@@ -134,44 +125,5 @@ func GetGroupAssignRequest() gin.HandlerFunc {
 
 		s.Header("Content-Type", "application/json")
 		s.String(http.StatusOK, resp)
-	}
-}
-
-// registerGLP...
-// this is a temporary demo thing, basically when we assign
-// a glp, we store it in a hash set
-func registerGLP(s *gin.Context, glpID uint64) {
-	session := sessions.Default(s)
-
-	assignedPlans := session.Get("assigned_plans")
-
-	if assignedPlans == nil {
-		util.Error("session assigned_plans doesn't exist")
-	}
-
-	assignedPlansTable := map[uint64]bool{}
-	if assignedPlans != nil {
-		util.Error("restoring old ALP assignments table from session")
-		assignedPlansTable, _ = assignedPlans.(map[uint64]bool)
-	}
-
-	// TODO: if we want to sort by time we should probably
-	// do this here, as well as we need to store the current time
-	// right now because there is no time.
-
-	// because we dont want to store duplicates we
-	// store these in a hashset-type thing
-	assignedPlansTable[glpID] = true
-
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"GLP"})
-	for id := range assignedPlansTable {
-		table.Append([]string{fmt.Sprintf("%d", id)})
-	}
-	table.Render()
-
-	session.Set("assigned_plans", assignedPlansTable)
-	if err := session.Save(); err != nil {
-		util.Error("registerGLP", err.Error())
 	}
 }

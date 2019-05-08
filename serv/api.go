@@ -1,8 +1,8 @@
 package serv
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/HandsFree/teacherui-backend/req"
+	"github.com/gin-gonic/gin"
 )
 
 func registerAPI(router *gin.Engine) {
@@ -19,14 +19,8 @@ func registerAPI(router *gin.Engine) {
 		lang.POST("/phrases", req.GetTranslationPhrases())
 	}
 
-	// FIXME(Felix): this probably falls under some kind of
-	// category. activity/activities?
-	{
-		v1.GET("recent_activities", req.GetRecentActivities())
-
-		// FIXME: move somewhere, e.g. /students/
-		v1.GET("student_overview", req.GetStudentOverview())
-	}
+	// FIXME: move somewhere, e.g. /students/
+	v1.GET("student_overview", req.GetStudentOverview())
 
 	authAPI := v1.Group("auth")
 	{
@@ -79,6 +73,8 @@ func registerAPI(router *gin.Engine) {
 	{
 		profile.GET("/", req.GetProfileRequest())
 		profile.PUT("/", req.PutProfileRequest())
+		profile.GET("recent_activities", req.GetRecentActivities())
+		profile.GET("recently_assigned", req.GetRecentlyAssigned())
 	}
 
 	glps := v1.Group("glps")
@@ -87,10 +83,35 @@ func registerAPI(router *gin.Engine) {
 		glps.GET("/exists_with_name", req.GetGLPSWithName())
 	}
 
+	res := v1.Group("resource")
+	{
+		res.GET("/:id", req.GetResource())
+		res.GET("/:id/content", req.GetResourceContent())
+		res.DELETE("/:id", req.DeleteResource())
+
+		// when creating a resource, we create a 'handle'
+		// name, etc. the content is then PUT into the resource.
+		res.POST("/", req.CreateResourceHandle())
+
+		// this is whree we set the content of the resource
+		res.PUT("/:id/content", req.UpdateResource())
+	}
+
 	glp := v1.Group("glp")
 	{
 		glp.GET("/:id", req.GetGLPRequest())
 		glp.GET("/:id/files/", req.GetGLPFilesRequest())
+
+		glp.POST("/:id/link_resource/:resource", req.PostGLPResourceRequest())
+		glp.DELETE("/:id/unlink_resource/:resource", req.DeleteGLPResourceRequest())
+
+		// returns all of the students assigned to this glp
+		glp.GET("/:id/assigned_students", req.GetGLPAssignedStudents())
+
+		// returns all of the students that are not, or _can be_
+		// assigned to this glp.
+		glp.GET("/:id/unassigned_students", req.GetGLPUnAssignedStudents())
+		glp.GET("/:id/unassigned_groups", req.GetGLPUnAssignedGroups())
 
 		glp.DELETE("/:id", req.DeleteGLPRequest())
 		glp.POST("/", req.PostGLPRequest())

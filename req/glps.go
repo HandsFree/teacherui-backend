@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gin-gonic/gin"
 	"github.com/HandsFree/teacherui-backend/entity"
 	"github.com/HandsFree/teacherui-backend/parse"
 	"github.com/HandsFree/teacherui-backend/util"
+	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 )
 

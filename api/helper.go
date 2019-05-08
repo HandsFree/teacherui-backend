@@ -1,15 +1,15 @@
 package api
 
 import (
-    "fmt"
-    "log"
-    "time"
+	"fmt"
+	"log"
+	"time"
 
-    "github.com/patrickmn/go-cache"
+	"github.com/patrickmn/go-cache"
 
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 
-    "github.com/HandsFree/teacherui-backend/cfg"
+	"github.com/HandsFree/teacherui-backend/cfg"
 )
 
 // ApiLayer is a layer which handles manipulation of
@@ -25,49 +25,51 @@ const timeout = 120 * time.Second
 // GetRedirectBaseLink returns the link for
 // redirecting the api tokens
 func GetRedirectBaseLink() string {
-    if cfg.Beaconing.Server.CallbackURL == "" {
-        log.Fatal("Server Host not defined in config!")
-    }
+	if cfg.Beaconing.Server.CallbackURL == "" {
+		log.Fatal("Server Host not defined in config!")
+	}
 
-    return cfg.Beaconing.Server.CallbackURL + "/api/v1/token/"
+	return cfg.Beaconing.Server.CallbackURL + "/api/v1/token/"
 }
 
 // GetLink returns the callback link with a trailing slash
 func GetLink() string {
-    return cfg.Beaconing.Server.CallbackURL + "/"
+	return cfg.Beaconing.Server.CallbackURL + "/"
 }
 
 // SetupAPIHelper sets up an instanceof the API manager
 // should not be called more than once (in theory!)
 func SetupAPIHelper() {
-    API = newAPIHelper()
+	API = newAPIHelper()
 }
 
 // CoreAPIManager manages all of the api middleman requests, etc.
 // as well as caching any json/requests that are frequently requested
 type CoreAPIManager struct {
-    APIPath string
-    cache   *cache.Cache
+	APIPath string
+	cache   *cache.Cache
 }
 
 // getPath creates an API path, appending on the given beaconing URL
 // "https://core.beaconing.eu/api/", this makes concatenation painless
 // as well as it slaps the access token on the end
 func (a *CoreAPIManager) getPath(s *gin.Context, args ...string) string {
-    path := a.APIPath
-    for _, arg := range args {
-        path += arg
-    }
-    return fmt.Sprintf("%s", path)
+	path := a.APIPath
+	for _, arg := range args {
+		path += arg
+	}
+	result := fmt.Sprintf("%s", path)
+	log.Println("getPath:", result)
+	return result
 }
 
 func Cache() *cache.Cache {
-    return API.cache
+	return API.cache
 }
 
 func newAPIHelper() *CoreAPIManager {
-    return &CoreAPIManager{
-        APIPath: cfg.Beaconing.Server.BeaconingAPIRoute,
-        cache:   cache.New(30*time.Minute, 10*time.Minute),
-    }
+	return &CoreAPIManager{
+		APIPath: cfg.Beaconing.Server.BeaconingAPIRoute,
+		cache:   cache.New(30*time.Minute, 10*time.Minute),
+	}
 }

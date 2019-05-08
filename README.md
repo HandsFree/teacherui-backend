@@ -14,6 +14,17 @@
 # Repo Information
 Note, the frontend code can be found [here](//github.com/HandsFree/teacherui-frontend).
 
+## Translations
+When adding translations, ensure that you insert a new row into the `trans.keys`
+file:
+
+  translation_key=>This is the translation in English, case and puncutation sensitive!
+
+After this, ensure that the English translation has been added into a table in the Dropbox Paper file. 
+Once the translations have been entered into the dropbox, run the translation parser tool
+on the markdown for the Dropbox Paper translations document, and additionall pass in the
+trans.keys file.
+
 ## License
 Licensed under GNU AGPLv3. See the `LICENSE.md` file for the full license.
 

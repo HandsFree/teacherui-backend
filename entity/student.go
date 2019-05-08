@@ -1,5 +1,7 @@
 package entity
 
+import "time"
+
 type Address struct {
 	Line1    string `json:"line1"`
 	Line2    string `json:"line2"`
@@ -21,6 +23,18 @@ type Profile struct {
 
 type Students struct {
 	Data []Student
+}
+
+type Assignee struct {
+	ID               uint64    `json:"id"`
+	Name             string    `json:"name"`
+	StudentID        uint64    `json:"studentId"`
+	StudentName      string    `json:"studentName"`
+	StudentGroupID   uint64    `json:"studentGroupId"`
+	StudentGroupName string    `json:"studentGroupName"`
+	GLPID            uint64    `json:"gamifiedLessonPathId"`
+	AvailableFrom    time.Time `json:"availableFrom"`
+	Priority         string    `json:"priority"`
 }
 
 type Student struct {

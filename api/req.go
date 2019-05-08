@@ -48,6 +48,16 @@ func DoTimedRequestBody(s *gin.Context, method string, url string, reqBody io.Re
 	})
 }
 
+// DoTimedRequestAcceptBody This is pretty nasty, but we have an extra parametre to pass in
+// contentType that the request should send as.
+func DoTimedRequestAcceptBody(s *gin.Context, method string, contentType string, url string, reqBody io.Reader) ([]byte, error, int) {
+	return DoTimedRequestBodyHeaders(s, method, url, reqBody, map[string]string{
+		"accept":        "application/json",
+		"Content-Type":  contentType,
+		"authorization": fmt.Sprintf("Bearer %s", GetAccessToken(s)),
+	})
+}
+
 // DoTimedRequestBodyHeaders does a timed request of type {method} to {url} with an optional {reqBody}, if
 // there is no body pass nil, as well as a timeout can be specified.
 func DoTimedRequestBodyHeaders(s *gin.Context, method string, url string, reqBody io.Reader, headers map[string]string) ([]byte, error, int) {
@@ -55,16 +65,19 @@ func DoTimedRequestBodyHeaders(s *gin.Context, method string, url string, reqBod
 	defer cancel()
 
 	req, err := http.NewRequest(method, url, reqBody)
-	{
-		for key, val := range headers {
-			req.Header.Add(key, val)
-		}
-	}
 
 	// HACK FIXME
-	// sort of hacky but it should work fine.
+	// hacky but it should work fine.
+
+	// IMPORTANT NOTE, we do this before
+	// we add the headers map as this means
+	// that the API user gets a chance to override the Content-Type if necessary.
 	if method == "POST" || method == "PUT" {
 		req.Header.Set("Content-Type", "application/json")
+	}
+
+	for key, val := range headers {
+		req.Header.Set(key, val)
 	}
 
 	if err != nil {

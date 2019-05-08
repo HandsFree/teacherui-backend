@@ -20,9 +20,6 @@ import (
 // query here ourselves this is slower since we have to turn
 // the json into structures to extract student id's then we
 // have to regenerate the json with the new avatar hash slapped in.
-//
-// one thing I want to do is extract all the id's from the json
-// then we can do one big query to the database asking for all of the ids
 func GetStudents(s *gin.Context) (string, error) {
 	resp, err, status := DoTimedRequest(s, "GET", API.getPath(s, "students"))
 	if err != nil {

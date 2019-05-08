@@ -99,10 +99,18 @@ func FilterByTopic(s *gin.Context, plans []*entity.GLP, val string) ([]*entity.G
 func FilterByExactDomain(s *gin.Context, plans []*entity.GLP, val string) ([]*entity.GLP, error) {
 	results := []*entity.GLP{}
 	for _, plan := range plans {
-		// check for prefix rather than equals for some
-		// more lenient matching.
-		// TODO fixme.
 		domain := strings.ToLower(plan.Domain)
+		if strings.Compare(domain, val) == 0 {
+			results = append(results, plan)
+		}
+	}
+	return results, nil
+}
+
+func FilterByExactCategory(s *gin.Context, plans []*entity.GLP, val string) ([]*entity.GLP, error) {
+	results := []*entity.GLP{}
+	for _, plan := range plans {
+		domain := strings.ToLower(plan.Category)
 		if strings.Compare(domain, val) == 0 {
 			results = append(results, plan)
 		}
@@ -127,13 +135,13 @@ func FilterByDomain(s *gin.Context, plans []*entity.GLP, val string) ([]*entity.
 func SortBySTEM(s *gin.Context, plans []*entity.GLP, order SortingOption) ([]*entity.GLP, error) {
 	switch order {
 	case Sci:
-		return FilterByExactDomain(s, plans, "science")
+		return FilterByExactCategory(s, plans, "science")
 	case Tech:
-		return FilterByExactDomain(s, plans, "technology")
+		return FilterByExactCategory(s, plans, "technology")
 	case Eng:
-		return FilterByExactDomain(s, plans, "engineering")
+		return FilterByExactCategory(s, plans, "engineering")
 	case Maths:
-		return FilterByExactDomain(s, plans, "maths")
+		return FilterByExactCategory(s, plans, "maths")
 	default:
 		return []*entity.GLP{}, nil
 	}

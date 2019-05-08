@@ -10,9 +10,9 @@ import (
 
 	"github.com/patrickmn/go-cache"
 
-	"github.com/gin-gonic/gin"
 	"github.com/HandsFree/teacherui-backend/entity"
 	"github.com/HandsFree/teacherui-backend/util"
+	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -26,6 +26,48 @@ func GetUserID(s *gin.Context) (uint64, error) {
 		return 0, errors.New("No such user")
 	}
 	return obj.ID, nil
+}
+
+func GetRecentlyAssigned(s *gin.Context) ([]entity.RecentActivity, error) {
+	resp, err, status := DoTimedRequest(s, "GET", API.getPath(s, "currentuser/recentactivity?types=assignedglp_created"))
+	if err != nil {
+		util.Error("GetRecentlyAssigned", err.Error())
+		return []entity.RecentActivity{}, err
+	}
+
+	if status != http.StatusOK {
+		util.Info("[GetRecentlyAssigned] Status Returned: ", status)
+		return []entity.RecentActivity{}, err
+	}
+
+	activities := []entity.RecentActivity{}
+	if err := jsoniter.Unmarshal(resp, &activities); err != nil {
+		util.Error("GetRecentlyAssigned", err.Error())
+		return []entity.RecentActivity{}, err
+	}
+
+	return activities, nil
+}
+
+func GetRecentActivities(s *gin.Context) ([]entity.RecentActivity, error) {
+	resp, err, status := DoTimedRequest(s, "GET", API.getPath(s, "currentuser/recentactivity"))
+	if err != nil {
+		util.Error("GetRecentActivities", err.Error())
+		return []entity.RecentActivity{}, err
+	}
+
+	if status != http.StatusOK {
+		util.Info("[GetRecentActivities] Status Returned: ", status)
+		return []entity.RecentActivity{}, err
+	}
+
+	activities := []entity.RecentActivity{}
+	if err := jsoniter.Unmarshal(resp, &activities); err != nil {
+		util.Error("GetRecentActivities", err.Error())
+		return []entity.RecentActivity{}, err
+	}
+
+	return activities, nil
 }
 
 // GetCurrentUser returns an object with information about the current

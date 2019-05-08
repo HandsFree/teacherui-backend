@@ -152,9 +152,165 @@ func loadGLPFiles(folderName string) []glpFile {
 	return fileList
 }
 
+func GetGLPAssignedStudents() gin.HandlerFunc {
+	return func(s *gin.Context) {
+		idParam := s.Param("id")
+		id, err := strconv.ParseUint(idParam, 10, 64)
+		if err != nil || id < 0 {
+			s.String(http.StatusBadRequest, "Client Error: Invalid GLP ID")
+			return
+		}
+
+		plan, err := api.GetAssignedStudents(s, id, true)
+		if err != nil {
+			s.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		planJSON, err := jsoniter.Marshal(plan)
+		if err != nil {
+			util.Error(err.Error())
+			return
+		}
+
+		s.Header("Content-Type", "application/json")
+		s.String(http.StatusOK, string(planJSON))
+	}
+}
+
+func GetGLPUnAssignedGroups() gin.HandlerFunc {
+	return func(s *gin.Context) {
+		idParam := s.Param("id")
+		id, err := strconv.ParseUint(idParam, 10, 64)
+		if err != nil || id < 0 {
+			s.String(http.StatusBadRequest, "Client Error: Invalid GLP ID")
+			return
+		}
+
+		groups, err := api.GetUnAssignedGroups(s, id)
+		if err != nil {
+			s.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		groupJSON, err := jsoniter.Marshal(groups)
+		if err != nil {
+			util.Error(err.Error())
+			return
+		}
+
+		s.Header("Content-Type", "application/json")
+		s.String(http.StatusOK, string(groupJSON))
+	}
+}
+
+func GetGLPUnAssignedStudents() gin.HandlerFunc {
+	return func(s *gin.Context) {
+		idParam := s.Param("id")
+		id, err := strconv.ParseUint(idParam, 10, 64)
+		if err != nil || id < 0 {
+			s.String(http.StatusBadRequest, "Client Error: Invalid GLP ID")
+			return
+		}
+
+		students, err := api.GetUnAssignedStudents(s, id)
+		if err != nil {
+			s.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		studentsJSON, err := jsoniter.Marshal(students)
+		if err != nil {
+			util.Error(err.Error())
+			return
+		}
+
+		s.Header("Content-Type", "application/json")
+		s.String(http.StatusOK, string(studentsJSON))
+	}
+}
+
+func DeleteGLPResourceRequest() gin.HandlerFunc {
+	return func(s *gin.Context) {
+		idParam := s.Param("id")
+		id, err := strconv.ParseUint(idParam, 10, 64)
+		if err != nil || id < 0 {
+			s.String(http.StatusBadRequest, "Client Error: Invalid GLP ID")
+			return
+		}
+
+		ridParam := s.Param("resource")
+		rid, err := strconv.ParseUint(ridParam, 10, 64)
+		if err != nil || id < 0 {
+			s.String(http.StatusBadRequest, "Client Error: Invalid Resource ID")
+			return
+		}
+
+		if err := api.UnlinkResourceFromGLP(s, id, rid); err != nil {
+			util.Error(err)
+			s.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		s.Header("Content-Type", "application/json")
+		s.JSON(http.StatusOK, map[string]string{
+			"message": "OK",
+		})
+	}
+}
+
+func PostGLPResourceRequest() gin.HandlerFunc {
+	return func(s *gin.Context) {
+		idParam := s.Param("id")
+		id, err := strconv.ParseUint(idParam, 10, 64)
+		if err != nil || id < 0 {
+			s.String(http.StatusBadRequest, "Client Error: Invalid GLP ID")
+			return
+		}
+
+		ridParam := s.Param("resource")
+		rid, err := strconv.ParseUint(ridParam, 10, 64)
+		if err != nil || id < 0 {
+			s.String(http.StatusBadRequest, "Client Error: Invalid Resource ID")
+			return
+		}
+
+		if err := api.LinkResourceToGLP(s, id, rid); err != nil {
+			util.Error(err)
+			s.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		s.Header("Content-Type", "application/json")
+		s.JSON(http.StatusOK, map[string]string{
+			"message": "OK",
+		})
+	}
+}
+
 func GetGLPFilesRequest() gin.HandlerFunc {
 	return func(s *gin.Context) {
-		// TODO core.beaconing.eu/api-docs
+		idParam := s.Param("id")
+		id, err := strconv.ParseUint(idParam, 10, 64)
+		if err != nil || id < 0 {
+			s.String(http.StatusBadRequest, "Client Error: Invalid GLP ID")
+			return
+		}
+
+		files, err := api.GetGLPFiles(s, id)
+		if err != nil {
+			s.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		filesJSON, err := jsoniter.Marshal(files)
+		if err != nil {
+			util.Error(err.Error())
+			return
+		}
+
+		s.Header("Content-Type", "application/json")
+		s.String(http.StatusOK, string(filesJSON))
 	}
 }
 
